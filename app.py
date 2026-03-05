@@ -1,3 +1,4 @@
+import os
 import random
 import string
 from datetime import datetime, timezone
@@ -95,4 +96,5 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug = os.environ.get("FLASK_DEBUG", "0") == "1"
+    app.run(debug=debug)
