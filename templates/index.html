@@ -86,7 +86,7 @@
         </div>
         <div class="list-group">
           {% for notice in notices %}
-          <a href="{{ url_for('notices') }}" class="list-group-item list-group-item-action">
+          <div class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
               <h6 class="mb-1">
                 {% if notice.is_important %}
@@ -97,8 +97,19 @@
               <small class="text-muted">{{ notice.date.strftime('%d %b') }}</small>
             </div>
             <p class="mb-1 small text-muted">{{ notice.content[:100] }}…</p>
-            <small class="badge bg-light text-dark">{{ notice.category }}</small>
-          </a>
+            <div class="d-flex align-items-center justify-content-between">
+              <small class="badge bg-light text-dark">{{ notice.category }}</small>
+              <button class="btn btn-link btn-sm p-0 text-primary preview-notice-btn"
+                      data-title="{{ notice.title }}"
+                      data-content="{{ notice.content }}"
+                      data-category="{{ notice.category }}"
+                      data-date="{{ notice.date.strftime('%d %B %Y') }}"
+                      data-important="{{ 'true' if notice.is_important else 'false' }}"
+                      data-bs-toggle="modal" data-bs-target="#noticePreviewModal">
+                Read More <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
           {% endfor %}
         </div>
       </div>
@@ -122,7 +133,15 @@
                   <div>
                     <h6 class="mb-1 fw-semibold">{{ event.title }}</h6>
                     <small class="text-muted"><i class="bi bi-geo-alt me-1"></i>{{ event.location }}</small>
-                    <p class="mb-0 small mt-1 text-muted">{{ event.description[:80] }}…</p>
+                    <p class="mb-1 small mt-1 text-muted">{{ event.description[:80] }}…</p>
+                    <button class="btn btn-link btn-sm p-0 text-primary preview-event-btn"
+                            data-title="{{ event.title }}"
+                            data-description="{{ event.description }}"
+                            data-date="{{ event.event_date.strftime('%d %B %Y') }}"
+                            data-location="{{ event.location }}"
+                            data-bs-toggle="modal" data-bs-target="#eventPreviewModal">
+                      Read More <i class="bi bi-arrow-right ms-1"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -173,4 +192,94 @@
   </div>
 </section>
 
-{% endblock %}
+<!-- Notice Preview Modal -->
+<div class="modal fade" id="noticePreviewModal" tabindex="-1" aria-labelledby="noticePreviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#1a3a6b;">
+        <h5 class="modal-title text-white" id="noticePreviewModalLabel">Notice Preview</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div id="noticePreviewImportant" class="mb-2"></div>
+        <h4 id="noticePreviewTitle" class="fw-bold mb-1"></h4>
+        <div class="d-flex gap-2 mb-3">
+          <span id="noticePreviewCategory" class="badge bg-secondary"></span>
+          <small id="noticePreviewDate" class="text-muted"></small>
+        </div>
+        <hr />
+        <p id="noticePreviewContent" class="text-muted" style="white-space: pre-wrap;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{{ url_for('notices') }}" class="btn btn-primary">View All Notices</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Event Preview Modal -->
+<div class="modal fade" id="eventPreviewModal" tabindex="-1" aria-labelledby="eventPreviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#1a3a6b;">
+        <h5 class="modal-title text-white" id="eventPreviewModalLabel">Event Preview</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="d-flex gap-3 align-items-start mb-3">
+          <div class="event-date-box text-center">
+            <div id="eventPreviewDay" class="event-day"></div>
+            <div id="eventPreviewMonth" class="event-month"></div>
+          </div>
+          <div>
+            <h4 id="eventPreviewTitle" class="fw-bold mb-1"></h4>
+            <small id="eventPreviewLocation" class="text-muted"></small>
+          </div>
+        </div>
+        <hr />
+        <p id="eventPreviewDescription" class="text-muted" style="white-space: pre-wrap;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{{ url_for('events') }}" class="btn btn-primary">View All Events</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.preview-notice-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById('noticePreviewTitle').textContent = btn.dataset.title;
+      document.getElementById('noticePreviewContent').textContent = btn.dataset.content;
+      document.getElementById('noticePreviewCategory').textContent = btn.dataset.category;
+      document.getElementById('noticePreviewDate').textContent = btn.dataset.date;
+      var importantEl = document.getElementById('noticePreviewImportant');
+      if (btn.dataset.important === 'true') {
+        importantEl.innerHTML = '<span class="badge bg-danger">Important</span>';
+      } else {
+        importantEl.innerHTML = '';
+      }
+    });
+  });
+
+  document.querySelectorAll('.preview-event-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById('eventPreviewTitle').textContent = btn.dataset.title;
+      document.getElementById('eventPreviewDescription').textContent = btn.dataset.description;
+      document.getElementById('eventPreviewLocation').innerHTML =
+        '<i class="bi bi-geo-alt me-1"></i>' + btn.dataset.location;
+      var dateParts = btn.dataset.date.split(' ');
+      document.getElementById('eventPreviewDay').textContent = dateParts[0] || '';
+      document.getElementById('eventPreviewMonth').textContent =
+        (dateParts[1] || '') + (dateParts[2] ? ' ' + dateParts[2] : '');
+    });
+  });
+});
+</script>
+{% endblock extra_scripts %}
+
+{% endblock content %}
