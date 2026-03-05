@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard – JBAC{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+  <div class="container">
+
+    <!-- Welcome banner -->
+    <div class="dashboard-welcome rounded p-4 mb-4 d-flex align-items-center gap-4">
+      <div class="dash-avatar">
+        <span>{{ user.full_name.split()[0][0] }}{{ user.full_name.split()[-1][0] }}</span>
+      </div>
+      <div>
+        <h3 class="mb-1 fw-bold text-white">Welcome, {{ user.full_name }}!</h3>
+        <p class="mb-0 text-white-50">
+          Role: <span class="badge bg-warning text-dark text-capitalize">{{ user.role }}</span>
+          &nbsp;|&nbsp; {{ user.email }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick stats -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="dash-stat-card text-center p-3 rounded shadow-sm bg-white">
+          <i class="bi bi-bell-fill text-primary fs-3 mb-2 d-block"></i>
+          <div class="fw-bold fs-4">{{ notices | length }}</div>
+          <small class="text-muted">Notices</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="dash-stat-card text-center p-3 rounded shadow-sm bg-white">
+          <i class="bi bi-calendar-event-fill text-success fs-3 mb-2 d-block"></i>
+          <div class="fw-bold fs-4">{{ events | length }}</div>
+          <small class="text-muted">Upcoming Events</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="dash-stat-card text-center p-3 rounded shadow-sm bg-white">
+          <i class="bi bi-journal-text text-warning fs-3 mb-2 d-block"></i>
+          <div class="fw-bold fs-4">6</div>
+          <small class="text-muted">Subjects</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="dash-stat-card text-center p-3 rounded shadow-sm bg-white">
+          <i class="bi bi-check-circle-fill text-info fs-3 mb-2 d-block"></i>
+          <div class="fw-bold fs-4">87%</div>
+          <small class="text-muted">Attendance</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Recent notices -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-white fw-semibold d-flex justify-content-between">
+            <span><i class="bi bi-bell-fill text-primary me-2"></i>Recent Notices</span>
+            <a href="{{ url_for('notices') }}" class="btn btn-sm btn-outline-primary">View All</a>
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for notice in notices %}
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between">
+                <span class="small fw-semibold">
+                  {% if notice.is_important %}<span class="badge bg-danger me-1">!</span>{% endif %}
+                  {{ notice.title }}
+                </span>
+                <small class="text-muted">{{ notice.date.strftime('%d %b') }}</small>
+              </div>
+              <small class="text-muted">{{ notice.content[:60] }}…</small>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Upcoming events -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-white fw-semibold d-flex justify-content-between">
+            <span><i class="bi bi-calendar-event-fill text-success me-2"></i>Upcoming Events</span>
+            <a href="{{ url_for('events') }}" class="btn btn-sm btn-outline-primary">View All</a>
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for event in events %}
+            <li class="list-group-item">
+              <div class="d-flex gap-3 align-items-center">
+                <div class="event-date-box-sm text-center">
+                  <div style="font-size:1.1rem;font-weight:bold;color:#1a3a6b;">{{ event.event_date.strftime('%d') }}</div>
+                  <div style="font-size:0.65rem;color:#888;text-transform:uppercase;">{{ event.event_date.strftime('%b') }}</div>
+                </div>
+                <div>
+                  <div class="small fw-semibold">{{ event.title }}</div>
+                  <small class="text-muted"><i class="bi bi-geo-alt me-1"></i>{{ event.location }}</small>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white fw-semibold">
+            <i class="bi bi-lightning-fill text-warning me-2"></i>Quick Links
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-wrap gap-3">
+              <a href="{{ url_for('notices') }}" class="btn btn-outline-primary"><i class="bi bi-bell me-2"></i>Notices</a>
+              <a href="{{ url_for('events') }}" class="btn btn-outline-success"><i class="bi bi-calendar me-2"></i>Events</a>
+              <a href="{{ url_for('courses') }}" class="btn btn-outline-info"><i class="bi bi-book me-2"></i>Courses</a>
+              <a href="{{ url_for('faculty') }}" class="btn btn-outline-secondary"><i class="bi bi-people me-2"></i>Faculty</a>
+              <a href="{{ url_for('contact') }}" class="btn btn-outline-warning"><i class="bi bi-envelope me-2"></i>Contact Office</a>
+              <a href="{{ url_for('logout') }}" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

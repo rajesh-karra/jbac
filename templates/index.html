@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Home – JBAC{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="container position-relative text-white py-5">
+    <div class="row align-items-center" style="min-height:380px;">
+      <div class="col-lg-7">
+        <span class="badge bg-warning text-dark mb-3 fs-6">Admissions Open 2025–26</span>
+        <h2 class="hero-heading">Shaping Futures,<br>Building Character</h2>
+        <p class="lead mt-3">
+          Jyothi Bharathi Adarsha College (JBAC) is a premier institution of higher learning
+          in Hyderabad, dedicated to academic excellence and holistic development.
+        </p>
+        <div class="mt-4 d-flex flex-wrap gap-3">
+          <a href="{{ url_for('admissions') }}" class="btn btn-warning btn-lg">Apply Now</a>
+          <a href="{{ url_for('about') }}" class="btn btn-outline-light btn-lg">Know More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats bar -->
+<section class="stats-bar py-4">
+  <div class="container">
+    <div class="row g-3 text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">5000+</div>
+          <div class="stat-label">Students Enrolled</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">120+</div>
+          <div class="stat-label">Faculty Members</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Courses Offered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Announcements ticker -->
+<section class="ticker-section py-2">
+  <div class="container d-flex align-items-center gap-3">
+    <span class="badge bg-danger ticker-label">Latest News</span>
+    <div class="ticker-wrap flex-grow-1 overflow-hidden">
+      <div class="ticker-text">
+        {% for notice in notices %}
+          {% if notice.is_important %}<i class="bi bi-exclamation-circle text-warning me-1"></i>{% endif %}
+          {{ notice.title }}
+          {% if not loop.last %}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main content: Notices + Events -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Notices column -->
+      <div class="col-lg-6">
+        <div class="section-heading d-flex justify-content-between align-items-center mb-4">
+          <h3 class="h4 fw-bold"><i class="bi bi-megaphone-fill text-primary me-2"></i>Notices &amp; Announcements</h3>
+          <a href="{{ url_for('notices') }}" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="list-group">
+          {% for notice in notices %}
+          <a href="{{ url_for('notices') }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">
+                {% if notice.is_important %}
+                  <span class="badge bg-danger me-1">Important</span>
+                {% endif %}
+                {{ notice.title }}
+              </h6>
+              <small class="text-muted">{{ notice.date.strftime('%d %b') }}</small>
+            </div>
+            <p class="mb-1 small text-muted">{{ notice.content[:100] }}…</p>
+            <small class="badge bg-light text-dark">{{ notice.category }}</small>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Events column -->
+      <div class="col-lg-6">
+        <div class="section-heading d-flex justify-content-between align-items-center mb-4">
+          <h3 class="h4 fw-bold"><i class="bi bi-calendar2-event-fill text-primary me-2"></i>Upcoming Events</h3>
+          <a href="{{ url_for('events') }}" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="row g-3">
+          {% for event in events %}
+          <div class="col-12">
+            <div class="card event-card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex gap-3">
+                  <div class="event-date-box text-center">
+                    <div class="event-day">{{ event.event_date.strftime('%d') }}</div>
+                    <div class="event-month">{{ event.event_date.strftime('%b') }}</div>
+                  </div>
+                  <div>
+                    <h6 class="mb-1 fw-semibold">{{ event.title }}</h6>
+                    <small class="text-muted"><i class="bi bi-geo-alt me-1"></i>{{ event.location }}</small>
+                    <p class="mb-0 small mt-1 text-muted">{{ event.description[:80] }}…</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Why choose JBAC -->
+<section class="why-section py-5 bg-light">
+  <div class="container">
+    <h3 class="text-center fw-bold mb-5">Why Choose JBAC?</h3>
+    <div class="row g-4 text-center">
+      <div class="col-sm-6 col-md-3">
+        <div class="why-card p-4">
+          <i class="bi bi-award-fill display-5 text-primary mb-3 d-block"></i>
+          <h6 class="fw-semibold">NAAC Accredited</h6>
+          <p class="small text-muted">Accredited with 'A' grade by NAAC, ensuring quality education.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="why-card p-4">
+          <i class="bi bi-mortarboard-fill display-5 text-primary mb-3 d-block"></i>
+          <h6 class="fw-semibold">Experienced Faculty</h6>
+          <p class="small text-muted">120+ dedicated faculty members with PhD and PG qualifications.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="why-card p-4">
+          <i class="bi bi-building-fill display-5 text-primary mb-3 d-block"></i>
+          <h6 class="fw-semibold">Modern Infrastructure</h6>
+          <p class="small text-muted">State-of-the-art labs, library, sports facilities and smart classrooms.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="why-card p-4">
+          <i class="bi bi-briefcase-fill display-5 text-primary mb-3 d-block"></i>
+          <h6 class="fw-semibold">Placement Support</h6>
+          <p class="small text-muted">Dedicated placement cell with industry partnerships for career support.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}About Us – JBAC{% endblock %}
+
+{% block content %}
+
+<div class="page-banner" style="background-color:#1a3a6b;">
+  <div class="container py-4 text-white">
+    <h2 class="mb-1">About Us</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-white-50">Home</a></li>
+        <li class="breadcrumb-item active text-white">About</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <h3 class="fw-bold section-title">Our Story</h3>
+        <p>
+          Jyothi Bharathi Adarsha College (JBAC) was established in 1972 with a vision to provide
+          quality higher education to students from all walks of life in Hyderabad and the
+          surrounding region.
+        </p>
+        <p>
+          Over five decades, JBAC has grown from a small junior college to a full-fledged
+          degree college offering undergraduate, postgraduate, and research programmes in
+          Arts, Science, Commerce, and Computer Applications.
+        </p>
+        <p>
+          The college is affiliated to Osmania University, Hyderabad, and has been
+          accredited with an <strong>'A' Grade by NAAC</strong>. With a sprawling
+          10-acre campus in Bandlaguda Jagir, JBAC offers world-class facilities in a
+          green, serene environment.
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <div class="about-img-placeholder rounded shadow d-flex align-items-center justify-content-center">
+          <span class="text-muted">College Building Photo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="vm-card p-4 h-100 rounded shadow-sm bg-white">
+          <h4 class="fw-bold text-primary mb-3"><i class="bi bi-eye-fill me-2"></i>Vision</h4>
+          <p class="text-muted">
+            To be a centre of excellence in higher education that fosters intellectual growth,
+            social responsibility, and innovation — empowering students to become ethical
+            leaders and responsible citizens.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="vm-card p-4 h-100 rounded shadow-sm bg-white">
+          <h4 class="fw-bold text-primary mb-3"><i class="bi bi-bullseye me-2"></i>Mission</h4>
+          <ul class="text-muted">
+            <li>Provide affordable, quality education to all sections of society.</li>
+            <li>Promote research, innovation, and critical thinking.</li>
+            <li>Instil values of integrity, discipline, and community service.</li>
+            <li>Develop industry-ready graduates through skills training and internships.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements -->
+<section class="py-5">
+  <div class="container">
+    <h3 class="text-center fw-bold mb-5">Our Achievements</h3>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3">
+        <div class="achievement-card text-center p-4 rounded shadow-sm border">
+          <i class="bi bi-patch-check-fill display-5 text-warning mb-3 d-block"></i>
+          <h5>NAAC 'A' Grade</h5>
+          <p class="small text-muted">Consistently accredited since 2008</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="achievement-card text-center p-4 rounded shadow-sm border">
+          <i class="bi bi-trophy-fill display-5 text-warning mb-3 d-block"></i>
+          <h5>Best College Award</h5>
+          <p class="small text-muted">Osmania University Best Affiliated College 2022</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="achievement-card text-center p-4 rounded shadow-sm border">
+          <i class="bi bi-stars display-5 text-warning mb-3 d-block"></i>
+          <h5>1000+ Placements</h5>
+          <p class="small text-muted">Students placed in top companies every year</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="achievement-card text-center p-4 rounded shadow-sm border">
+          <i class="bi bi-book-fill display-5 text-warning mb-3 d-block"></i>
+          <h5>Research Output</h5>
+          <p class="small text-muted">200+ research papers published by faculty</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Management -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h3 class="text-center fw-bold mb-5">Management</h3>
+    <div class="row g-4 justify-content-center">
+      <div class="col-sm-6 col-md-4 col-lg-3 text-center">
+        <div class="person-card p-4 bg-white rounded shadow-sm">
+          <div class="person-avatar mx-auto mb-3">
+            <span>SK</span>
+          </div>
+          <h6 class="fw-bold mb-0">Sri. Suresh Kumar</h6>
+          <small class="text-muted">Chairman</small>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3 text-center">
+        <div class="person-card p-4 bg-white rounded shadow-sm">
+          <div class="person-avatar mx-auto mb-3">
+            <span>RP</span>
+          </div>
+          <h6 class="fw-bold mb-0">Dr. Ravi Prasad</h6>
+          <small class="text-muted">Secretary &amp; Correspondent</small>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3 text-center">
+        <div class="person-card p-4 bg-white rounded shadow-sm">
+          <div class="person-avatar mx-auto mb-3">
+            <span>LR</span>
+          </div>
+          <h6 class="fw-bold mb-0">Dr. Lakshmi Reddy</h6>
+          <small class="text-muted">Principal</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

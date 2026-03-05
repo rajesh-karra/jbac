@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Admissions – JBAC{% endblock %}
+
+{% block content %}
+
+<div class="page-banner" style="background-color:#1a3a6b;">
+  <div class="container py-4 text-white">
+    <h2 class="mb-1">Admissions 2025–26</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-white-50">Home</a></li>
+        <li class="breadcrumb-item active text-white">Admissions</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Left: admission info -->
+      <div class="col-lg-8">
+        <h3 class="fw-bold section-title">Admission Process</h3>
+
+        <div class="accordion mt-4" id="admissionAccordion">
+
+          <div class="accordion-item border mb-3 rounded">
+            <h2 class="accordion-header">
+              <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#step1">
+                <span class="step-badge me-3">1</span> Eligibility Criteria
+              </button>
+            </h2>
+            <div id="step1" class="accordion-collapse collapse show" data-bs-parent="#admissionAccordion">
+              <div class="accordion-body text-muted">
+                <ul>
+                  <li><strong>UG Programmes:</strong> Passed 10+2 (Intermediate) from a recognised board with minimum 45% aggregate marks.</li>
+                  <li><strong>PG Programmes:</strong> Passed relevant UG degree with minimum 50% aggregate marks.</li>
+                  <li><strong>MBA:</strong> Any UG degree with minimum 50% marks. Entrance test required.</li>
+                  <li>SC/ST/BC candidates: 5% relaxation in minimum marks.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border mb-3 rounded">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#step2">
+                <span class="step-badge me-3">2</span> Documents Required
+              </button>
+            </h2>
+            <div id="step2" class="accordion-collapse collapse" data-bs-parent="#admissionAccordion">
+              <div class="accordion-body text-muted">
+                <ul>
+                  <li>10th class marks memo (SSC)</li>
+                  <li>Intermediate / UG marks memo</li>
+                  <li>Transfer Certificate (TC) from last institution</li>
+                  <li>Caste Certificate (for reserved category)</li>
+                  <li>Aadhaar Card / Photo ID</li>
+                  <li>Income Certificate (for fee concession)</li>
+                  <li>4 passport-size photographs</li>
+                  <li>Migration Certificate (for students from other universities)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border mb-3 rounded">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#step3">
+                <span class="step-badge me-3">3</span> How to Apply
+              </button>
+            </h2>
+            <div id="step3" class="accordion-collapse collapse" data-bs-parent="#admissionAccordion">
+              <div class="accordion-body text-muted">
+                <ol>
+                  <li>Collect the application form from the college office or download it from the website.</li>
+                  <li>Fill the form completely and attach all required documents.</li>
+                  <li>Submit the form along with the application fee at the college counter.</li>
+                  <li>Attend the counselling session as per the schedule.</li>
+                  <li>Pay the tuition and other fees after seat allotment.</li>
+                </ol>
+                <a href="#" class="btn btn-primary mt-2">
+                  <i class="bi bi-download me-2"></i>Download Application Form
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border mb-3 rounded">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#step4">
+                <span class="step-badge me-3">4</span> Fee Structure
+              </button>
+            </h2>
+            <div id="step4" class="accordion-collapse collapse" data-bs-parent="#admissionAccordion">
+              <div class="accordion-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered small">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>Programme</th>
+                        <th>Annual Tuition Fee</th>
+                        <th>Other Fees</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-muted">
+                      <tr><td>B.A.</td><td>₹ 8,000</td><td>₹ 2,500</td></tr>
+                      <tr><td>B.Sc.</td><td>₹ 12,000</td><td>₹ 3,500</td></tr>
+                      <tr><td>B.Com</td><td>₹ 10,000</td><td>₹ 2,500</td></tr>
+                      <tr><td>BCA</td><td>₹ 18,000</td><td>₹ 4,000</td></tr>
+                      <tr><td>M.A. / M.Sc. / M.Com</td><td>₹ 15,000</td><td>₹ 3,000</td></tr>
+                      <tr><td>MBA</td><td>₹ 35,000</td><td>₹ 5,000</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <small class="text-muted">* Fee waiver available for economically backward students. Contact the office for details.</small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: key dates & contact -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-primary text-white fw-semibold">
+            <i class="bi bi-calendar-check me-2"></i>Important Dates 2025–26
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Application Opens</span><span class="text-muted">01 May 2025</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Last Date to Apply</span><span class="badge bg-danger">30 Jun 2025</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Counselling</span><span class="text-muted">05–10 Jul 2025</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Fee Payment Deadline</span><span class="text-muted">20 Jul 2025</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Classes Commence</span><span class="text-muted">01 Aug 2025</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-success text-white fw-semibold">
+            <i class="bi bi-headset me-2"></i>Admission Helpdesk
+          </div>
+          <div class="card-body small text-muted">
+            <p><i class="bi bi-telephone-fill me-2 text-success"></i>+91-40-2345-6789</p>
+            <p><i class="bi bi-telephone-fill me-2 text-success"></i>+91-40-2345-6790</p>
+            <p><i class="bi bi-envelope-fill me-2 text-success"></i>admissions@jbac.in</p>
+            <p class="mb-0"><strong>Office Hours:</strong><br>Mon–Sat: 9:00 AM – 4:00 PM</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Courses – JBAC{% endblock %}
+
+{% block content %}
+
+<div class="page-banner" style="background-color:#1a3a6b;">
+  <div class="container py-4 text-white">
+    <h2 class="mb-1">Courses Offered</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-white-50">Home</a></li>
+        <li class="breadcrumb-item active text-white">Courses</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="py-5">
+  <div class="container">
+
+    <!-- Filter tabs -->
+    <ul class="nav nav-pills justify-content-center mb-5" id="courseTabs">
+      <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#ug">Undergraduate (UG)</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pg">Postgraduate (PG)</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#cert">Certificates</button></li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- UG Courses -->
+      <div class="tab-pane fade show active" id="ug">
+        <div class="row g-4">
+          {% set ug_courses = [
+            ("B.A. (Arts)", "bi-palette", "3 Years", "English, Telugu, History, Political Science, Economics, Sociology", "60"),
+            ("B.Sc. (Science)", "bi-flask", "3 Years", "Mathematics, Physics, Chemistry, Botany, Zoology, Computer Science", "120"),
+            ("B.Com (Commerce)", "bi-bar-chart-fill", "3 Years", "Commerce, Accountancy, Business Economics, Computer Applications", "120"),
+            ("B.Com (Computer Applications)", "bi-laptop", "3 Years", "Commerce with Computer Applications & Information Technology", "60"),
+            ("BCA (Computer Applications)", "bi-cpu", "3 Years", "Programming, Data Structures, Web Development, Database Management", "60"),
+            ("B.Sc. (Microbiology)", "bi-virus2", "3 Years", "Microbiology, Biochemistry, Genetics, Industrial Microbiology", "40"),
+          ] %}
+          {% for name, icon, duration, subjects, intake in ug_courses %}
+          <div class="col-md-6 col-lg-4">
+            <div class="course-card card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3 gap-3">
+                  <div class="course-icon-box">
+                    <i class="bi {{ icon }} fs-4 text-primary"></i>
+                  </div>
+                  <h6 class="mb-0 fw-bold">{{ name }}</h6>
+                </div>
+                <ul class="list-unstyled small text-muted">
+                  <li><i class="bi bi-clock me-2 text-primary"></i>Duration: {{ duration }}</li>
+                  <li><i class="bi bi-people me-2 text-primary"></i>Intake: {{ intake }} seats</li>
+                  <li><i class="bi bi-journals me-2 text-primary"></i>{{ subjects }}</li>
+                </ul>
+              </div>
+              <div class="card-footer bg-white border-0">
+                <a href="{{ url_for('admissions') }}" class="btn btn-sm btn-primary w-100">Apply Now</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- PG Courses -->
+      <div class="tab-pane fade" id="pg">
+        <div class="row g-4">
+          {% set pg_courses = [
+            ("M.A. (English)", "bi-translate", "2 Years", "English Literature, Linguistics, Communication Skills", "40"),
+            ("M.Sc. (Computer Science)", "bi-code-slash", "2 Years", "Advanced Programming, AI, Machine Learning, Cloud Computing", "40"),
+            ("M.Com (Commerce)", "bi-currency-rupee", "2 Years", "Advanced Accountancy, Finance, Management, Taxation", "40"),
+            ("MBA (Business Administration)", "bi-briefcase", "2 Years", "Management, Marketing, Finance, Human Resources", "60"),
+          ] %}
+          {% for name, icon, duration, subjects, intake in pg_courses %}
+          <div class="col-md-6 col-lg-4">
+            <div class="course-card card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3 gap-3">
+                  <div class="course-icon-box">
+                    <i class="bi {{ icon }} fs-4 text-primary"></i>
+                  </div>
+                  <h6 class="mb-0 fw-bold">{{ name }}</h6>
+                </div>
+                <ul class="list-unstyled small text-muted">
+                  <li><i class="bi bi-clock me-2 text-primary"></i>Duration: {{ duration }}</li>
+                  <li><i class="bi bi-people me-2 text-primary"></i>Intake: {{ intake }} seats</li>
+                  <li><i class="bi bi-journals me-2 text-primary"></i>{{ subjects }}</li>
+                </ul>
+              </div>
+              <div class="card-footer bg-white border-0">
+                <a href="{{ url_for('admissions') }}" class="btn btn-sm btn-primary w-100">Apply Now</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Certificate Courses -->
+      <div class="tab-pane fade" id="cert">
+        <div class="row g-4">
+          {% set cert_courses = [
+            ("Spoken English", "bi-mic-fill", "6 Months", "Communication skills, presentation, pronunciation"),
+            ("Tally & GST", "bi-receipt", "3 Months", "Accounting software, GST compliance"),
+            ("Web Development", "bi-globe2", "6 Months", "HTML, CSS, JavaScript, Python/PHP basics"),
+            ("Yoga & Wellness", "bi-heart-pulse-fill", "3 Months", "Physical and mental wellness, yoga techniques"),
+          ] %}
+          {% for name, icon, duration, subjects in cert_courses %}
+          <div class="col-md-6 col-lg-3">
+            <div class="course-card card border-0 shadow-sm h-100">
+              <div class="card-body text-center">
+                <i class="bi {{ icon }} display-6 text-primary mb-3 d-block"></i>
+                <h6 class="fw-bold">{{ name }}</h6>
+                <p class="small text-muted">{{ subjects }}</p>
+                <small class="text-muted"><i class="bi bi-clock me-1"></i>{{ duration }}</small>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

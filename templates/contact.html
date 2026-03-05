@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us – JBAC{% endblock %}
+
+{% block content %}
+
+<div class="page-banner" style="background-color:#1a3a6b;">
+  <div class="container py-4 text-white">
+    <h2 class="mb-1">Contact Us</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-white-50">Home</a></li>
+        <li class="breadcrumb-item active text-white">Contact</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Contact form -->
+      <div class="col-lg-7">
+        <h3 class="fw-bold section-title mb-4">Send Us a Message</h3>
+        <form>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-control" placeholder="Full Name" required />
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-control" placeholder="you@example.com" required />
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" placeholder="+91-XXXXX-XXXXX" />
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Subject</label>
+              <select class="form-select">
+                <option value="">Select subject…</option>
+                <option>Admission Enquiry</option>
+                <option>Fee Payment</option>
+                <option>Certificate Request</option>
+                <option>General Enquiry</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Message</label>
+              <textarea class="form-control" rows="5" placeholder="Write your message here…" required></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary px-5">
+                <i class="bi bi-send-fill me-2"></i>Send Message
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Contact details -->
+      <div class="col-lg-5">
+        <h3 class="fw-bold section-title mb-4">Get in Touch</h3>
+        <div class="contact-info-list">
+          <div class="contact-info-item d-flex gap-3 mb-4">
+            <div class="contact-icon-box">
+              <i class="bi bi-geo-alt-fill fs-4 text-primary"></i>
+            </div>
+            <div>
+              <h6 class="fw-semibold mb-1">Address</h6>
+              <p class="text-muted small mb-0">
+                Survey No. 25, Bandlaguda Jagir,<br>
+                Near Chandrayangutta,<br>
+                Hyderabad – 500 086, Telangana, India
+              </p>
+            </div>
+          </div>
+          <div class="contact-info-item d-flex gap-3 mb-4">
+            <div class="contact-icon-box">
+              <i class="bi bi-telephone-fill fs-4 text-primary"></i>
+            </div>
+            <div>
+              <h6 class="fw-semibold mb-1">Phone</h6>
+              <p class="text-muted small mb-0">+91-40-2345-6789<br>+91-40-2345-6790</p>
+            </div>
+          </div>
+          <div class="contact-info-item d-flex gap-3 mb-4">
+            <div class="contact-icon-box">
+              <i class="bi bi-envelope-fill fs-4 text-primary"></i>
+            </div>
+            <div>
+              <h6 class="fw-semibold mb-1">Email</h6>
+              <p class="text-muted small mb-0">info@jbac.in<br>admissions@jbac.in</p>
+            </div>
+          </div>
+          <div class="contact-info-item d-flex gap-3 mb-4">
+            <div class="contact-icon-box">
+              <i class="bi bi-clock-fill fs-4 text-primary"></i>
+            </div>
+            <div>
+              <h6 class="fw-semibold mb-1">Office Hours</h6>
+              <p class="text-muted small mb-0">
+                Monday – Saturday: 9:00 AM – 4:30 PM<br>
+                Sunday &amp; Public Holidays: Closed
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map placeholder -->
+        <div class="map-placeholder rounded shadow-sm d-flex align-items-center justify-content-center mt-3">
+          <div class="text-center text-muted">
+            <i class="bi bi-map display-4"></i>
+            <p class="mt-2 small">Google Map – Bandlaguda Jagir, Hyderabad</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
