@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}JBAC – Jyothi Bharathi Adarsha College{% endblock %}</title>
+
+  <!-- Bootstrap 5 (local) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+  <!-- Bootstrap Icons (local) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.min.css') }}" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar py-1">
+  <div class="container d-flex justify-content-between align-items-center">
+    <small class="text-white">
+      <i class="bi bi-telephone-fill me-1"></i>+91-40-2345-6789 &nbsp;|&nbsp;
+      <i class="bi bi-envelope-fill me-1"></i>info@jbac.in
+    </small>
+    <small class="text-white">
+      {% if current_user %}
+        <i class="bi bi-person-fill me-1"></i>{{ current_user.full_name }}
+        &nbsp;<a href="{{ url_for('logout') }}" class="text-white">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="text-white me-2"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
+      {% endif %}
+    </small>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site-header py-3">
+  <div class="container d-flex align-items-center gap-3">
+    <div class="logo-circle me-3">
+      <span class="logo-text">JBAC</span>
+    </div>
+    <div>
+      <h1 class="site-title mb-0">Jyothi Bharathi Adarsha College</h1>
+      <p class="site-tagline mb-0">Affiliated to Osmania University · NAAC Accredited · Est. 1972</p>
+    </div>
+  </div>
+</header>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark main-nav sticky-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'courses' %}active{% endif %}" href="{{ url_for('courses') }}">Courses</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'admissions' %}active{% endif %}" href="{{ url_for('admissions') }}">Admissions</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'faculty' %}active{% endif %}" href="{{ url_for('faculty') }}">Faculty</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if request.endpoint in ['events','notices'] %}active{% endif %}" href="#" data-bs-toggle="dropdown">Updates</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ url_for('notices') }}"><i class="bi bi-bell me-2"></i>Notices</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('events') }}"><i class="bi bi-calendar-event me-2"></i>Events</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'gallery' %}active{% endif %}" href="{{ url_for('gallery') }}">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a></li>
+      </ul>
+      {% if current_user %}
+      <a href="{{ url_for('dashboard') }}" class="btn btn-light btn-sm me-2">
+        <i class="bi bi-grid-fill me-1"></i>Dashboard
+      </a>
+      {% else %}
+      <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm">
+        <i class="bi bi-box-arrow-in-right me-1"></i>Student Login
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- Page content -->
+{% block content %}{% endblock %}
+
+<!-- Footer -->
+<footer class="site-footer mt-5 py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h5 class="footer-heading">Jyothi Bharathi Adarsha College</h5>
+        <p class="small text-muted">
+          Committed to excellence in education since 1972. NAAC accredited, Osmania University affiliated.
+          Nurturing young minds for a brighter tomorrow.
+        </p>
+        <div class="social-links mt-3">
+          <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="me-2"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <h6 class="footer-heading">Quick Links</h6>
+        <ul class="list-unstyled small">
+          <li><a href="{{ url_for('about') }}">About Us</a></li>
+          <li><a href="{{ url_for('courses') }}">Courses</a></li>
+          <li><a href="{{ url_for('admissions') }}">Admissions</a></li>
+          <li><a href="{{ url_for('faculty') }}">Faculty</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6 class="footer-heading">Important Links</h6>
+        <ul class="list-unstyled small">
+          <li><a href="{{ url_for('notices') }}">Notices &amp; Circulars</a></li>
+          <li><a href="{{ url_for('events') }}">Events</a></li>
+          <li><a href="{{ url_for('gallery') }}">Photo Gallery</a></li>
+          <li><a href="{{ url_for('login') }}">Student Login</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6 class="footer-heading">Contact Us</h6>
+        <ul class="list-unstyled small text-muted">
+          <li><i class="bi bi-geo-alt-fill me-2"></i>Survey No. 25, Bandlaguda Jagir,<br>&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad – 500 086, Telangana</li>
+          <li class="mt-2"><i class="bi bi-telephone-fill me-2"></i>+91-40-2345-6789</li>
+          <li class="mt-1"><i class="bi bi-envelope-fill me-2"></i>info@jbac.in</li>
+          <li class="mt-1"><i class="bi bi-globe me-2"></i>www.jbac.in</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider mt-4" />
+    <div class="text-center small text-muted">
+      © {{ now.year }} Jyothi Bharathi Adarsha College. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

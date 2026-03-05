@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery – JBAC{% endblock %}
+
+{% block content %}
+
+<div class="page-banner" style="background-color:#1a3a6b;">
+  <div class="container py-4 text-white">
+    <h2 class="mb-1">Photo Gallery</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-white-50">Home</a></li>
+        <li class="breadcrumb-item active text-white">Gallery</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="py-5">
+  <div class="container">
+
+    <!-- Category filter -->
+    <div class="d-flex flex-wrap gap-2 justify-content-center mb-5">
+      <button class="btn btn-primary btn-sm gallery-filter active" data-filter="all">All</button>
+      <button class="btn btn-outline-primary btn-sm gallery-filter" data-filter="events">Events</button>
+      <button class="btn btn-outline-primary btn-sm gallery-filter" data-filter="campus">Campus</button>
+      <button class="btn btn-outline-primary btn-sm gallery-filter" data-filter="sports">Sports</button>
+      <button class="btn btn-outline-primary btn-sm gallery-filter" data-filter="cultural">Cultural</button>
+    </div>
+
+    {% set gallery_items = [
+      ("Annual College Day 2024", "events", "bi-music-note-beamed"),
+      ("Science Exhibition 2024", "events", "bi-flask"),
+      ("Main Building", "campus", "bi-building"),
+      ("Computer Lab", "campus", "bi-laptop"),
+      ("Library", "campus", "bi-book"),
+      ("Annual Sports Meet 2024", "sports", "bi-trophy"),
+      ("Cricket Tournament", "sports", "bi-dribbble"),
+      ("Basketball Court", "sports", "bi-circle"),
+      ("JBAC Utsav – Dance", "cultural", "bi-music-note-list"),
+      ("JBAC Utsav – Drama", "cultural", "bi-camera-video"),
+      ("Graduation Ceremony 2024", "events", "bi-mortarboard"),
+      ("Freshers' Welcome 2024", "events", "bi-balloon-heart"),
+    ] %}
+
+    <div class="row g-3 gallery-grid">
+      {% for caption, category, icon in gallery_items %}
+      <div class="col-6 col-md-4 col-lg-3 gallery-item" data-category="{{ category }}">
+        <div class="gallery-thumb rounded overflow-hidden shadow-sm">
+          <div class="gallery-placeholder d-flex align-items-center justify-content-center flex-column">
+            <i class="bi {{ icon }} display-4 text-white opacity-75 mb-2"></i>
+            <small class="text-white text-center px-2">{{ caption }}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.querySelectorAll('.gallery-filter').forEach(btn => {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active', 'btn-primary'));
+    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.add('btn-outline-primary'));
+    this.classList.add('active', 'btn-primary');
+    this.classList.remove('btn-outline-primary');
+
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.style.display = (filter === 'all' || item.dataset.category === filter) ? '' : 'none';
+    });
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Faculty – JBAC{% endblock %}
+
+{% block content %}
+
+<div class="page-banner" style="background-color:#1a3a6b;">
+  <div class="container py-4 text-white">
+    <h2 class="mb-1">Faculty</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-white-50">Home</a></li>
+        <li class="breadcrumb-item active text-white">Faculty</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="py-5">
+  <div class="container">
+
+    {% set departments = [
+      ("Science Department", [
+        ("Dr. Anitha Rao", "Professor & HOD – Physics", "M.Sc., Ph.D.", "18 years"),
+        ("Dr. Srinivas Reddy", "Associate Professor – Chemistry", "M.Sc., Ph.D.", "14 years"),
+        ("Mrs. Padmavathi", "Assistant Professor – Mathematics", "M.Sc., B.Ed.", "9 years"),
+        ("Mr. Vijay Kumar", "Assistant Professor – Computer Science", "MCA, M.Tech.", "7 years"),
+      ]),
+      ("Commerce & Management", [
+        ("Dr. Sumalatha G.", "Professor & HOD – Commerce", "M.Com., Ph.D.", "22 years"),
+        ("Mr. Ravi Shankar", "Associate Professor – Accountancy", "M.Com., MBA", "12 years"),
+        ("Mrs. Kavitha M.", "Assistant Professor – Business Studies", "MBA, B.Ed.", "6 years"),
+      ]),
+      ("Arts & Humanities", [
+        ("Dr. Narsimha Rao", "Professor & HOD – Telugu", "M.A., Ph.D.", "20 years"),
+        ("Mrs. Jyothi Priya", "Associate Professor – English", "M.A., M.Phil.", "15 years"),
+        ("Mr. Arun Babu", "Assistant Professor – History", "M.A., B.Ed.", "8 years"),
+      ]),
+      ("Computer Applications", [
+        ("Mr. Srikanth N.", "HOD – Computer Applications", "MCA, M.Tech.", "11 years"),
+        ("Ms. Divya Latha", "Assistant Professor – BCA", "MCA", "5 years"),
+        ("Mr. Prashanth V.", "Assistant Professor – Web Technologies", "M.Tech. (CS)", "4 years"),
+      ]),
+    ] %}
+
+    {% for dept_name, members in departments %}
+    <div class="mb-5">
+      <h4 class="fw-bold dept-heading mb-4">
+        <span class="dept-line"></span>{{ dept_name }}
+      </h4>
+      <div class="row g-4">
+        {% for name, role, qual, exp in members %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="faculty-card card border-0 shadow-sm h-100 text-center">
+            <div class="card-body pt-4">
+              <div class="faculty-avatar mx-auto mb-3">
+                <span>{{ name.split()[-1][0] }}{{ name.split()[0][0] }}</span>
+              </div>
+              <h6 class="fw-bold mb-1">{{ name }}</h6>
+              <small class="text-primary d-block mb-1">{{ role }}</small>
+              <small class="text-muted d-block"><i class="bi bi-mortarboard me-1"></i>{{ qual }}</small>
+              <small class="text-muted"><i class="bi bi-clock me-1"></i>{{ exp }} experience</small>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+{% endblock %}

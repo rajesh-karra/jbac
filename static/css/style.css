@@ -1,0 +1,240 @@
+/* ============================================================
+   JBAC Website – Custom Stylesheet
+   ============================================================ */
+
+/* -- Variables -- */
+:root {
+  --primary:   #1a3a6b;
+  --secondary: #c8902a;
+  --accent:    #e8f0fb;
+  --text-dark: #1f2937;
+  --text-muted:#6b7280;
+}
+
+/* -- Base -- */
+body {
+  font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+  color: var(--text-dark);
+  background: #f9fafb;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+}
+
+/* -- Top bar -- */
+.topbar {
+  background: var(--primary);
+  font-size: 0.8rem;
+}
+.topbar a { text-decoration: none; }
+.topbar a:hover { text-decoration: underline; }
+
+/* -- Site header -- */
+.site-header {
+  background: #fff;
+  border-bottom: 3px solid var(--secondary);
+}
+.logo-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.logo-text {
+  color: #fff;
+  font-family: 'Merriweather', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.site-title {
+  font-size: 1.45rem;
+  color: var(--primary);
+}
+.site-tagline {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* -- Main nav -- */
+.main-nav {
+  background: var(--primary);
+}
+.main-nav .nav-link { font-weight: 600; font-size: 0.9rem; }
+.main-nav .nav-link.active { color: var(--secondary) !important; }
+
+/* -- Hero -- */
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #0d2a56 0%, #1a5a9b 100%);
+  overflow: hidden;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-heading {
+  font-size: 2.5rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+@media (max-width: 768px) { .hero-heading { font-size: 1.75rem; } }
+
+/* -- Stats bar -- */
+.stats-bar { background: #fff; border-bottom: 1px solid #e5e7eb; }
+.stat-number { font-size: 2rem; font-weight: 800; color: var(--primary); }
+.stat-label  { font-size: 0.8rem; color: var(--text-muted); }
+
+/* -- Ticker -- */
+.ticker-section { background: #f0f4ff; border-bottom: 1px solid #d1ddf7; }
+.ticker-label { font-size: 0.75rem; white-space: nowrap; }
+.ticker-text  { white-space: nowrap; font-size: 0.87rem; color: var(--text-dark); }
+
+/* -- Event date box -- */
+.event-date-box {
+  min-width: 52px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 8px;
+  flex-shrink: 0;
+}
+.event-day   { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+.event-month { font-size: 0.65rem; text-transform: uppercase; opacity: 0.85; }
+.event-card  { border-left: 3px solid var(--primary) !important; }
+
+/* -- Why section -- */
+.why-card {
+  border-radius: 12px;
+  transition: box-shadow .2s;
+}
+.why-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+
+/* -- Page banner -- */
+.page-banner { border-bottom: 3px solid var(--secondary); }
+.page-banner .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.4); }
+
+/* -- Section title -- */
+.section-title { color: var(--primary); border-left: 4px solid var(--secondary); padding-left: .75rem; }
+
+/* -- Person / management cards -- */
+.person-avatar, .faculty-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.1rem;
+}
+
+/* -- About image placeholder -- */
+.about-img-placeholder {
+  background: #d1ddf7;
+  min-height: 280px;
+  color: #9b9b9b;
+}
+
+/* -- Vision/Mission cards -- */
+.vm-card { border-left: 4px solid var(--secondary); }
+
+/* -- Course cards -- */
+.course-icon-box {
+  width: 48px; height: 48px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* -- Admissions step badge -- */
+.step-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  font-size: 0.85rem; font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* -- Faculty dept heading -- */
+.dept-heading { color: var(--primary); }
+.dept-line {
+  display: inline-block;
+  width: 4px; height: 1.2em;
+  background: var(--secondary);
+  margin-right: .6rem;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+/* -- Event full card image -- */
+.event-img-placeholder {
+  height: 150px;
+  background: linear-gradient(135deg, var(--primary), #2a5fa5);
+}
+
+/* -- Notice card -- */
+.notice-card { border-left: 4px solid var(--primary) !important; }
+
+/* -- Gallery -- */
+.gallery-thumb { cursor: pointer; }
+.gallery-placeholder {
+  height: 180px;
+  background: linear-gradient(135deg, var(--primary), #2a5fa5);
+  transition: opacity .2s;
+}
+.gallery-thumb:hover .gallery-placeholder { opacity: .85; }
+
+/* -- Contact -- */
+.contact-icon-box {
+  width: 44px; height: 44px;
+  background: var(--accent); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.map-placeholder {
+  height: 200px;
+  background: #e9eef6;
+  color: var(--text-muted);
+}
+
+/* -- Login page -- */
+.login-section { min-height: calc(100vh - 260px); }
+.login-card { border-radius: 16px !important; }
+.login-logo {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Merriweather', serif; font-weight: 700; font-size: 1rem;
+  margin: 0 auto;
+}
+
+/* -- Dashboard -- */
+.dashboard-welcome {
+  background: linear-gradient(135deg, var(--primary), #2a5fa5);
+}
+.dash-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  color: #fff; font-size: 1.5rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.dash-stat-card { border-radius: 12px; }
+
+/* -- Footer -- */
+.site-footer { background: #111827; color: #9ca3af; }
+.footer-heading { color: #f9fafb; font-size: .9rem; }
+.site-footer a { color: #9ca3af; text-decoration: none; }
+.site-footer a:hover { color: #fff; }
+.footer-divider { border-color: #374151; }
+.social-links a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,.08); color: #d1d5db;
+  text-decoration: none; transition: background .2s;
+}
+.social-links a:hover { background: var(--secondary); color: #fff; }
