@@ -38,6 +38,14 @@
               </div>
             </div>
             <p class="card-text text-muted small">{{ event.description }}</p>
+            <button class="btn btn-sm btn-outline-primary mt-2 preview-event-btn"
+                    data-title="{{ event.title }}"
+                    data-description="{{ event.description }}"
+                    data-date="{{ event.event_date.strftime('%d %B %Y') }}"
+                    data-location="{{ event.location }}"
+                    data-bs-toggle="modal" data-bs-target="#eventPreviewModal">
+              <i class="bi bi-eye me-1"></i>Preview
+            </button>
           </div>
         </div>
       </div>
@@ -52,4 +60,52 @@
   </div>
 </section>
 
-{% endblock %}
+<!-- Event Preview Modal -->
+<div class="modal fade" id="eventPreviewModal" tabindex="-1" aria-labelledby="eventPreviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#1a3a6b;">
+        <h5 class="modal-title text-white" id="eventPreviewModalLabel">Event Preview</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="d-flex gap-3 align-items-start mb-3">
+          <div class="event-date-box text-center">
+            <div id="eventPreviewDay" class="event-day"></div>
+            <div id="eventPreviewMonth" class="event-month"></div>
+          </div>
+          <div>
+            <h4 id="eventPreviewTitle" class="fw-bold mb-1"></h4>
+            <small id="eventPreviewLocation" class="text-muted"><i class="bi bi-geo-alt me-1"></i></small>
+          </div>
+        </div>
+        <hr />
+        <p id="eventPreviewDescription" class="text-muted" style="white-space: pre-wrap;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.preview-event-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById('eventPreviewTitle').textContent = btn.dataset.title;
+      document.getElementById('eventPreviewDescription').textContent = btn.dataset.description;
+      document.getElementById('eventPreviewLocation').innerHTML =
+        '<i class="bi bi-geo-alt me-1"></i>' + btn.dataset.location;
+      var dateParts = btn.dataset.date.split(' ');
+      document.getElementById('eventPreviewDay').textContent = dateParts[0] || '';
+      document.getElementById('eventPreviewMonth').textContent =
+        (dateParts[1] || '') + (dateParts[2] ? ' ' + dateParts[2] : '');
+    });
+  });
+});
+</script>
+{% endblock extra_scripts %}
+
+{% endblock content %}

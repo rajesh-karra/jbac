@@ -36,8 +36,17 @@
                 <h5 class="card-title fw-bold mb-2">{{ notice.title }}</h5>
                 <p class="card-text text-muted">{{ notice.content }}</p>
               </div>
-              <div class="text-end flex-shrink-0">
-                <button class="btn btn-sm btn-outline-primary">
+              <div class="text-end flex-shrink-0 d-flex flex-column gap-2">
+                <button class="btn btn-sm btn-outline-primary preview-notice-btn"
+                        data-title="{{ notice.title }}"
+                        data-content="{{ notice.content }}"
+                        data-category="{{ notice.category }}"
+                        data-date="{{ notice.date.strftime('%d %B %Y') }}"
+                        data-important="{{ 'true' if notice.is_important else 'false' }}"
+                        data-bs-toggle="modal" data-bs-target="#noticePreviewModal">
+                  <i class="bi bi-eye me-1"></i>Preview
+                </button>
+                <button class="btn btn-sm btn-outline-secondary">
                   <i class="bi bi-download me-1"></i>Download
                 </button>
               </div>
@@ -56,4 +65,53 @@
   </div>
 </section>
 
-{% endblock %}
+<!-- Notice Preview Modal -->
+<div class="modal fade" id="noticePreviewModal" tabindex="-1" aria-labelledby="noticePreviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#1a3a6b;">
+        <h5 class="modal-title text-white" id="noticePreviewModalLabel">Notice Preview</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div id="noticePreviewImportant" class="mb-2"></div>
+        <h4 id="noticePreviewTitle" class="fw-bold mb-1"></h4>
+        <div class="d-flex gap-2 mb-3">
+          <span id="noticePreviewCategory" class="badge bg-secondary"></span>
+          <small id="noticePreviewDate" class="text-muted"></small>
+        </div>
+        <hr />
+        <p id="noticePreviewContent" class="text-muted" style="white-space: pre-wrap;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-primary">
+          <i class="bi bi-download me-1"></i>Download
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.preview-notice-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById('noticePreviewTitle').textContent = btn.dataset.title;
+      document.getElementById('noticePreviewContent').textContent = btn.dataset.content;
+      document.getElementById('noticePreviewCategory').textContent = btn.dataset.category;
+      document.getElementById('noticePreviewDate').textContent = btn.dataset.date;
+      var importantEl = document.getElementById('noticePreviewImportant');
+      if (btn.dataset.important === 'true') {
+        importantEl.innerHTML = '<span class="badge bg-danger">Important</span>';
+      } else {
+        importantEl.innerHTML = '';
+      }
+    });
+  });
+});
+</script>
+{% endblock extra_scripts %}
+
+{% endblock content %}
