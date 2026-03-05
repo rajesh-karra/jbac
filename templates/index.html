@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}My Links &mdash; JBAC URL Shortener{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Shorten a URL</h2>
+
+    {% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert alert-success">
+        Short URL created: <a class="short-link" href="{{ success }}" target="_blank">{{ success }}</a>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/l">
+        <div class="form-row" style="margin-bottom: 0.75rem;">
+            <input
+                type="url"
+                name="url"
+                placeholder="https://example.com/very-long-url"
+                required
+                aria-label="Long URL"
+            >
+        </div>
+        <div class="form-row">
+            <input
+                type="text"
+                name="custom_code"
+                placeholder="Custom code (optional)"
+                maxlength="50"
+                pattern="[A-Za-z0-9]*"
+                title="Only letters and numbers are allowed"
+                aria-label="Custom short code"
+            >
+            <button type="submit" class="btn">Shorten</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <h2>All Links</h2>
+
+    {% if links %}
+    <table>
+        <thead>
+            <tr>
+                <th>Short URL</th>
+                <th>Original URL</th>
+                <th>Clicks</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for link in links %}
+            <tr>
+                <td>
+                    <a class="short-link" href="/{{ link.short_code }}" target="_blank">/{{ link.short_code }}</a>
+                </td>
+                <td>
+                    <div class="original-url" title="{{ link.original_url }}">
+                        <a href="{{ link.original_url }}" target="_blank" rel="noopener noreferrer" style="color:inherit;">
+                            {{ link.original_url }}
+                        </a>
+                    </div>
+                </td>
+                <td><span class="badge">{{ link.clicks }}</span></td>
+                <td>{{ link.created_at.strftime("%Y-%m-%d") }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty">No links yet. Create your first short URL above!</div>
+    {% endif %}
+</div>
+{% endblock %}
