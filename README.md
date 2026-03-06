@@ -1,59 +1,64 @@
 # jbac
 
-A Python/Flask web application that replicates the **Jyothi Bharathi Adarsha College (jbac.in)** website.
+Flask app that serves a mirrored static frontend from `mirror_site/`.
 
-## Pages
+The backend is intentionally thin: it serves files from disk and supports SPA-style deep links by returning `mirror_site/index.html` for extensionless paths (for example `/about` or `/admissions`).
 
-| Route | Description |
-|-------|-------------|
-| `/` | Home – hero, stats, news ticker, notices & events |
-| `/about` | About – history, vision/mission, achievements, management |
-| `/courses` | Courses – UG, PG and certificate programmes |
-| `/admissions` | Admissions – eligibility, documents, fees, key dates |
-| `/faculty` | Faculty – department-wise staff directory |
-| `/events` | Events – upcoming & past events |
-| `/notices` | Notices & Announcements |
-| `/gallery` | Photo gallery with category filter |
-| `/contact` | Contact form and college address |
-| `/login` | Student / Staff login |
-| `/dashboard` | Authenticated user dashboard |
+## Current App Behavior
 
-## Quick Start
+- `GET /` serves `mirror_site/index.html`
+- `GET /<path>` serves a matching file from `mirror_site/` when it exists
+- `GET /<path>` falls back to `mirror_site/index.html` when `<path>` has no file extension (SPA deep link)
+- Missing file paths with extensions return `404`
+
+## Project Structure
+
+```text
+.
+|-- app.py
+|-- Procfile
+|-- requirements.txt
+|-- mirror_site/
+|   |-- index.html
+|   |-- assets/
+|   `-- ...
+|-- static/
+|-- templates/
+`-- README.md
+```
+
+## Local Development
 
 ```bash
-# 1. Create & activate a virtual environment (optional but recommended)
+# 1. Create and activate a virtual environment (recommended)
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run the development server
+# 3. Run the app
 python app.py
 ```
 
-Open http://127.0.0.1:5000 in your browser.
+App URL: `http://127.0.0.1:5000`
 
-### Demo credentials
+## Production Run
 
-| Role    | Username  | Password    |
-|---------|-----------|-------------|
-| Student | student1  | student123  |
-| Staff   | staff1    | staff123    |
-| Admin   | admin     | admin123    |
+`Procfile` uses:
 
-## Configuration
+```bash
+web: gunicorn app:app
+```
 
-| Environment variable | Default | Purpose |
-|---------------------|---------|---------|
-| `SECRET_KEY` | `jbac-secret-key-change-in-production` | Flask session secret |
-| `DATABASE_URL` | `sqlite:///jbac.db` | SQLAlchemy DB URI |
-| `FLASK_DEBUG` | `0` | Set to `1` to enable debug mode |
+Equivalent manual command:
 
-## Tech Stack
+```bash
+gunicorn app:app
+```
 
-- **Flask** – web framework
-- **Flask-SQLAlchemy** – ORM / SQLite database
-- **Werkzeug** – password hashing
-- **Bootstrap 5** – UI (bundled locally, no CDN required)
-- **Bootstrap Icons** – icon font (bundled locally)
+## Notes
+
+- The active runtime entrypoint is `app.py`.
+- Static mirror content is served from `mirror_site/`.
+- `templates/` and `static/` folders may exist for legacy or future server-rendered pages, but are not used by the current router.
