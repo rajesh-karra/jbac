@@ -17,7 +17,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jbac.mobile.ui.theme.JbacTheme
+import androidx.compose.ui.tooling.preview.Preview
+
+
+@Preview(showBackground = true, widthDp = 360, heightDp = 800)
+@Composable
+private fun LoginScreenPreview() {
+    LoginScreen(
+        appState = AppState(),
+        onLogin = { _, _ -> }
+    )
+}
+
 
 @Composable
 fun LoginScreen(
@@ -71,5 +85,17 @@ fun LoginScreen(
                 Text("Sign In")
             }
         }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 360, heightDp = 800)
+@Composable
+private fun LoginScreenPreview() {
+    JbacTheme {
+        LoginScreen(
+            appState = AppState(),
+            onLogin = { _, _ -> },
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }

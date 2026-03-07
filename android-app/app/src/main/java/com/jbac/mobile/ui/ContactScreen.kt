@@ -17,7 +17,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jbac.mobile.ui.theme.JbacTheme
 
 @Composable
 fun ContactScreen(
@@ -25,7 +27,21 @@ fun ContactScreen(
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    ContactScreenContent(
+        uiState = uiState,
+        onClearStatus = viewModel::clearStatus,
+        onSubmit = viewModel::submit,
+        modifier = modifier,
+    )
+}
 
+@Composable
+fun ContactScreenContent(
+    uiState: ContactUiState,
+    onClearStatus: () -> Unit,
+    onSubmit: (name: String, email: String, message: String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
@@ -42,7 +58,7 @@ fun ContactScreen(
             value = name,
             onValueChange = {
                 name = it
-                viewModel.clearStatus()
+                onClearStatus()
             },
             label = { Text("Name") },
             modifier = Modifier.fillMaxWidth(),
@@ -53,7 +69,7 @@ fun ContactScreen(
             value = email,
             onValueChange = {
                 email = it
-                viewModel.clearStatus()
+                onClearStatus()
             },
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
@@ -64,7 +80,7 @@ fun ContactScreen(
             value = message,
             onValueChange = {
                 message = it
-                viewModel.clearStatus()
+                onClearStatus()
             },
             label = { Text("Message") },
             modifier = Modifier.fillMaxWidth(),
@@ -86,7 +102,7 @@ fun ContactScreen(
         }
 
         Button(
-            onClick = { viewModel.submit(name = name.trim(), email = email.trim(), message = message.trim()) },
+            onClick = { onSubmit(name.trim(), email.trim(), message.trim()) },
             enabled = !uiState.isSubmitting,
             modifier = Modifier.fillMaxWidth(),
         ) {
@@ -96,5 +112,18 @@ fun ContactScreen(
                 Text("Send")
             }
         }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 360, heightDp = 800)
+@Composable
+private fun ContactScreenPreview() {
+    JbacTheme {
+        ContactScreenContent(
+            uiState = ContactUiState(),
+            onClearStatus = {},
+            onSubmit = { _, _, _ -> },
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }

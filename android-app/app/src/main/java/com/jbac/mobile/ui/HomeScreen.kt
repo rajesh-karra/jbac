@@ -17,7 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jbac.mobile.model.Event
+import com.jbac.mobile.model.HomeResponse
+import com.jbac.mobile.model.HomeStats
+import com.jbac.mobile.model.Notice
+import com.jbac.mobile.ui.theme.JbacTheme
 
 @Composable
 fun HomeScreen(
@@ -26,7 +32,21 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    HomeScreenContent(
+        uiState = uiState,
+        onRetry = viewModel::loadHomeData,
+        onOpenContact = onOpenContact,
+        modifier = modifier,
+    )
+}
 
+@Composable
+fun HomeScreenContent(
+    uiState: HomeUiState,
+    onRetry: () -> Unit,
+    onOpenContact: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     when {
         uiState.isLoading -> {
             Column(
@@ -49,7 +69,7 @@ fun HomeScreen(
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.error,
                 )
-                Button(onClick = viewModel::loadHomeData) {
+                Button(onClick = onRetry) {
                     Text("Retry")
                 }
             }
@@ -132,5 +152,53 @@ private fun StatsCard(
             Text("Faculty: $faculty")
             Text("Programs: $programs")
         }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 360, heightDp = 800)
+@Composable
+private fun HomeScreenPreview() {
+    val previewState = HomeUiState(
+        isLoading = false,
+        home = HomeResponse(
+            college = "JBAC",
+            tagline = "Excellence in Arts and Commerce",
+            highlights = listOf("NAAC Accredited", "Modern Campus"),
+            stats = HomeStats(students = 1200, faculty = 85, programs = 14),
+        ),
+        notices = listOf(
+            Notice(
+                id = 1,
+                title = "Admissions open for 2026",
+                publishedOn = "2026-03-01",
+                category = "Admission",
+                important = true,
+            ),
+            Notice(
+                id = 2,
+                title = "Semester exam schedule released",
+                publishedOn = "2026-02-27",
+                category = "Exam",
+                important = false,
+            ),
+        ),
+        events = listOf(
+            Event(
+                id = 1,
+                name = "Annual Cultural Fest",
+                date = "2026-03-20",
+                venue = "Main Auditorium",
+                description = "Music, dance, and student performances.",
+            )
+        ),
+    )
+
+    JbacTheme {
+        HomeScreenContent(
+            uiState = previewState,
+            onRetry = {},
+            onOpenContact = {},
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }
