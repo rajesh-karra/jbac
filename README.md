@@ -57,3 +57,10 @@ This Android app is a fully offline-first Compose app with the following section
 - If you want CLI builds, generate wrapper once:
   - In Android Studio terminal at `android-app`: `gradle wrapper`
   - Then use: `./gradlew :app:assembleDebug`
+
+## Render.com deployment notes
+
+- Render's Docker service requires a root `Dockerfile`; this repo is Android native.
+- Added `Dockerfile` + `index.html` as a fallback static page so Docker build no longer fails.
+- For a real Android release pipeline, prefer Google Play / Firebase App Distribution rather than Render web service.
+
