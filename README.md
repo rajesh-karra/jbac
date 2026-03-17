@@ -1,4 +1,4 @@
-# Android App (JBAC Mobile) professor
+# Android App (JBAC Mobile) 
 
 This Android app is a fully offline-first Compose app with the following sections:
 - Dashboard (home summary and highlights)
